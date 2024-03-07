@@ -12,17 +12,12 @@ import './index.css';
 export const App = () => {
 	const [inputTask, setInputTask] = useState('');
 	const [searchValue, setSearchValue] = useState('');
-	const [refreshTasks, setRefreshTasks] = useState(false);
 	const [isSorted, setIsSorted] = useState(false);
 
-	const { tasks, isLoading, error } = useRequestGetTasks(
-		searchValue,
-		refreshTasks,
-		isSorted,
-	);
-	const { requestAddTask } = useRequestAddTask(inputTask, refreshTasks, setRefreshTasks);
-	const { requestDeleteTask } = useRequestDeleteTask(refreshTasks, setRefreshTasks);
-	const { requestEditTask } = useRequestEditTask(refreshTasks, setRefreshTasks);
+	const { tasks, isLoading } = useRequestGetTasks(isSorted);
+	const { requestAddTask } = useRequestAddTask(inputTask);
+	const { requestDeleteTask } = useRequestDeleteTask();
+	const { requestEditTask } = useRequestEditTask();
 
 	return (
 		<div className="wrapper">
@@ -35,7 +30,6 @@ export const App = () => {
 			<TaskList
 				isSorted={isSorted}
 				setIsSorted={setIsSorted}
-				error={error}
 				requestEditTask={requestEditTask}
 				requestDeleteTask={requestDeleteTask}
 				tasks={tasks}

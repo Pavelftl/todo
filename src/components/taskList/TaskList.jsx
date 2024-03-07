@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 import { Task } from '../task/';
 
 import styles from './TaskList.module.scss';
@@ -29,7 +30,7 @@ export const TaskList = ({
 								<p className={styles.text}>Поиск по запросу: {searchValue} </p>
 							) : (
 								<div className={styles.title}>
-									<p> {tasks.length} задач осталось</p>
+									<p> {Object.entries(tasks).length - 1} задач осталось</p>
 									<svg
 										onClick={() => setIsSorted(!isSorted)}
 										fill={!isSorted ? '#8b939b' : '#000000'}
@@ -42,20 +43,25 @@ export const TaskList = ({
 									</svg>
 								</div>
 							)}
-							{tasks.length === 0 ? (
+							{Object.entries(tasks).length === 0 ? (
 								<p className={styles.error}>Список задач пуст</p>
 							) : (
 								<ul>
-									{tasks.map((task) => (
-										<Task
-											inputValue={inputValue}
-											setInputValue={setInputValue}
-											requestEditTask={requestEditTask}
-											requestDeleteTask={requestDeleteTask}
-											key={task.id}
-											{...task}
-										/>
-									))}
+									{Object.entries(tasks)
+										.filter(([, task]) =>
+											task.name.toLowerCase().includes(searchValue.toLowerCase()),
+										)
+										.map(([id, { name }]) => (
+											<Task
+												inputValue={inputValue}
+												setInputValue={setInputValue}
+												requestEditTask={requestEditTask}
+												requestDeleteTask={requestDeleteTask}
+												key={id}
+												name={name}
+												id={id}
+											/>
+										))}
 								</ul>
 							)}
 						</div>

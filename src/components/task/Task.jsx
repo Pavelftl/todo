@@ -2,12 +2,10 @@
 import { useRef, useState } from 'react';
 import styles from './Task.module.scss';
 
-export const Task = ({ name, id, requestDeleteTask, requestEditTask }) => {
+export const Task = ({ id, name, requestDeleteTask, requestEditTask }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [inputValue, setInputValue] = useState(name);
-
 	const inputRef = useRef();
-
 	const onClickShow = () => {
 		setIsEditing(true);
 		inputRef.current.focus();
@@ -30,7 +28,7 @@ export const Task = ({ name, id, requestDeleteTask, requestEditTask }) => {
 	};
 
 	return (
-		<li>
+		<li className={`${id === 'main' ? styles.notVisible : null}`}>
 			<div className={styles.item}>
 				<div className={styles.content}>
 					<input

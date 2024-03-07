@@ -1,19 +1,12 @@
-export const useRequestEditTask = (refreshTasks, setRefreshTasks) => {
+import { ref, set } from 'firebase/database';
+import { db } from '../firebase';
+
+export const useRequestEditTask = () => {
 	const requestEditTask = (inputValue, id) => {
-		fetch(`http://localhost:4000/tasks/${id}`, {
-			method: 'PUT',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				name: inputValue,
-			}),
-		})
-			.then((res) => res.json())
-			.then(() => {
-				setRefreshTasks(!refreshTasks);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		const tasksDbRef = ref(db, `tasks/${id}`);
+		set(tasksDbRef, {
+			name: inputValue,
+		});
 	};
 
 	return { requestEditTask };

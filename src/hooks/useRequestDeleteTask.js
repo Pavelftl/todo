@@ -1,15 +1,10 @@
-export const useRequestDeleteTask = (refreshTasks, setRefreshTasks) => {
+import { ref, remove } from 'firebase/database';
+import { db } from '../firebase';
+
+export const useRequestDeleteTask = () => {
 	const requestDeleteTask = (id) => {
-		fetch(`http://localhost:4000/tasks/${id}`, {
-			method: 'DELETE',
-		})
-			.then((res) => res.json())
-			.then(() => {
-				setRefreshTasks(!refreshTasks);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		const tasksDbRef = ref(db, `tasks/${id}`);
+		remove(tasksDbRef);
 	};
 
 	return { requestDeleteTask };
