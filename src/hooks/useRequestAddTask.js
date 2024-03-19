@@ -1,6 +1,6 @@
 export const useRequestAddTask = (inputTask, refreshTasks, setRefreshTasks) => {
 	const requestAddTask = () => {
-		fetch('http://localhost:4000/tasks', {
+		fetch('http://localhost:4000/task', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({

@@ -1,6 +1,6 @@
-export const useRequestEditTask = (refreshTasks, setRefreshTasks) => {
+export const useRequestEditTask = () => {
 	const requestEditTask = (inputValue, id) => {
-		fetch(`http://localhost:4000/tasks/${id}`, {
+		fetch(`http://localhost:4000/task/${id}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
@@ -8,9 +8,7 @@ export const useRequestEditTask = (refreshTasks, setRefreshTasks) => {
 			}),
 		})
 			.then((res) => res.json())
-			.then(() => {
-				setRefreshTasks(!refreshTasks);
-			})
+
 			.catch((error) => {
 				console.error(error);
 			});

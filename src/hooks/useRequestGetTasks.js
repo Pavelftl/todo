@@ -6,11 +6,11 @@ export const useRequestGetTasks = (searchValue, refreshTasks, isSorted) => {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
-		const search = searchValue ? `q=${searchValue}` : '';
+		const search = searchValue ? `q=${searchValue}&` : '';
 		const sort = isSorted ? `_sort=name&_order=asc` : '';
 		(async () => {
 			try {
-				const taskResponse = await fetch(`http://localhost:4000/tasks?${search}${sort}`);
+				const taskResponse = await fetch(`http://localhost:4000/task?${search}${sort}`);
 				const tasks = await taskResponse.json();
 				setTasks(tasks);
 			} catch (error) {

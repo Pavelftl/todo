@@ -1,19 +1,16 @@
 /* eslint-disable react/prop-types */
-import { Task } from '../task/';
+import { Link } from 'react-router-dom';
 
 import styles from './TaskList.module.scss';
+import { Task } from '../task/Task';
 
 export const TaskList = ({
-	inputValue,
-	setInputValue,
 	tasks,
 	error,
 	isLoading,
 	isSorted,
 	setIsSorted,
 	searchValue,
-	requestDeleteTask,
-	requestEditTask,
 }) => {
 	return (
 		<div className={styles.container}>
@@ -47,14 +44,9 @@ export const TaskList = ({
 							) : (
 								<ul>
 									{tasks.map((task) => (
-										<Task
-											inputValue={inputValue}
-											setInputValue={setInputValue}
-											requestEditTask={requestEditTask}
-											requestDeleteTask={requestDeleteTask}
-											key={task.id}
-											{...task}
-										/>
+										<Link key={task.id} to={`/task/${task.id}`}>
+											<Task {...task} />
+										</Link>
 									))}
 								</ul>
 							)}

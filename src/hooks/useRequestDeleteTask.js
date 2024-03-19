@@ -1,12 +1,10 @@
-export const useRequestDeleteTask = (refreshTasks, setRefreshTasks) => {
+export const useRequestDeleteTask = () => {
 	const requestDeleteTask = (id) => {
-		fetch(`http://localhost:4000/tasks/${id}`, {
+		fetch(`http://localhost:4000/task/${id}`, {
 			method: 'DELETE',
 		})
 			.then((res) => res.json())
-			.then(() => {
-				setRefreshTasks(!refreshTasks);
-			})
+
 			.catch((error) => {
 				console.error(error);
 			});

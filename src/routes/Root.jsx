@@ -1,15 +1,12 @@
 import { useState } from 'react';
 
-import { useRequestEditTask, useRequestGetTasks } from './hooks';
-import { useRequestAddTask } from './hooks';
-import { useRequestDeleteTask } from './hooks';
+import { useRequestGetTasks } from '../hooks';
+import { useRequestAddTask } from '../hooks';
 
-import { Header } from './components/header';
-import { TaskList } from './components/taskList';
-import { Form } from './components/form';
-import './index.css';
+import '../index.css';
+import { Form, Header, TaskList } from '../components';
 
-export const App = () => {
+export const Root = () => {
 	const [inputTask, setInputTask] = useState('');
 	const [searchValue, setSearchValue] = useState('');
 	const [refreshTasks, setRefreshTasks] = useState(false);
@@ -21,8 +18,6 @@ export const App = () => {
 		isSorted,
 	);
 	const { requestAddTask } = useRequestAddTask(inputTask, refreshTasks, setRefreshTasks);
-	const { requestDeleteTask } = useRequestDeleteTask(refreshTasks, setRefreshTasks);
-	const { requestEditTask } = useRequestEditTask(refreshTasks, setRefreshTasks);
 
 	return (
 		<div className="wrapper">
@@ -36,8 +31,6 @@ export const App = () => {
 				isSorted={isSorted}
 				setIsSorted={setIsSorted}
 				error={error}
-				requestEditTask={requestEditTask}
-				requestDeleteTask={requestDeleteTask}
 				tasks={tasks}
 				isLoading={isLoading}
 				searchValue={searchValue}
